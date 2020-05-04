@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Slide;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,67 +18,78 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('index',[
-    'as'=>'Trang-Chu',
-    'uses'=>'PageController@getIndex'
+Route::get('index', [
+    'as' => 'Trang-Chu',
+    'uses' => 'PageController@getIndex'
 ]);
 
-Route::get('chi-tiet-sp/{id}',[
+Route::get('chi-tiet-sp/{id}', [
     'as' => 'chitietsp',
     'uses' => 'PageController@getctsp'
 ]);
 
-Route::get('loai-sp/{type}',[
+Route::get('loai-sp/{type}', [
     'as' => 'loai-sp',
     'uses' => 'PageController@getloaisp'
 ]);
 
-Route::get('lien-he',[
+Route::get('lien-he', [
     'as' => 'lien-he',
     'uses' => 'PageController@getcontact'
 ]);
 
-Route::get('add-to-cart/{id}',[
-    'as'=> 'themgiohang',
+Route::get('add-to-cart/{id}', [
+    'as' => 'themgiohang',
     'uses' => 'PageController@getgiohang'
 ]);
 
-Route::get('delete-cart/{id}',[
-   'as' => 'xoagiohang',
-    'uses'=> 'PageController@getDel'
+Route::get('delete-cart/{id}', [
+    'as' => 'xoagiohang',
+    'uses' => 'PageController@getDel'
 ]);
 
-Route::get('dat-hang',[
-   'as' => 'dathang',
-   'uses' => "PageController@getdathang"
+Route::get('dat-hang', [
+    'as' => 'dathang',
+    'uses' => "PageController@getdathang"
 ]);
-Route::post('dat-hang',[
+Route::post('dat-hang', [
     'as' => 'dathang',
     'uses' => "PageController@postdathang"
 ]);
-Route::get('login',[
-   'as' => 'login',
-   'uses' => 'PageController@getlogin'
+Route::get('login', [
+    'as' => 'login',
+    'uses' => 'PageController@getlogin'
 ]);
-Route::post('login',[
+Route::post('login', [
     'as' => 'login',
     'uses' => 'PageController@postlogin'
 ]);
 
-Route::get('dang-ki',[
+Route::get('dang-ki', [
     'as' => 'dangki',
     'uses' => 'PageController@getdk'
 ]);
-Route::post('dang-ki',[
+Route::post('dang-ki', [
     'as' => 'dangki',
     'uses' => 'PageController@postdk'
 ]);
 
-Route::get('dang-xuat',[
-   'as' => 'logout',
-   'uses' => 'PageController@getDX'
+Route::get('dang-xuat', [
+    'as' => 'logout',
+    'uses' => 'PageController@getDX'
 ]);
-Route::get('search',[
-   'as' => 'search',
-   'uses' => 'PageController@getSearch'
+Route::get('search', [
+    'as' => 'search',
+    'uses' => 'PageController@getSearch'
 ]);
+
+//Route::get('admin',[
+//    'as' => 'admin',
+//    'uses' => 'AdminController@index'
+//]);
+//
+//Route::get('them-san-pham',[
+//    'as' => 'AddPro',
+//    'uses' => 'AdminController@create'
+//]);
+Route::resource('admin','AdminController');
