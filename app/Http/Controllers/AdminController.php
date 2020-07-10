@@ -37,6 +37,7 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         //
+        //dd($request);
         $request->validate([
             'prod_id' => 'required|integer',
             'prod_name' => 'required',
@@ -57,7 +58,15 @@ class AdminController extends Controller
         $products->promotion_price = $request->prod_promo_price;
         $products->unit = $request->prod_unit;
         $products->new = $request->prod_new;
-        $products->image = $request->prod_img;
+
+
+        if ($request->hasFile('prod_img')) {
+            $file = $request->file('prod_img');
+            $fileName = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+            $file->move('source/image/product', $fileName);
+            $products->image = $fileName;
+        }
+//        dd($request);
 
         $products->save();
         return redirect('/admin')->with('success', 'them thanh cong');
@@ -94,10 +103,11 @@ class AdminController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
+
+        //dd($request);
         $request->validate([
             'prod_id' => 'required|integer',
             'prod_name' => 'required',
@@ -109,17 +119,6 @@ class AdminController extends Controller
         ]);
 
         $edit_pro = product::find($id);
-
-       /* $edit_pro->id = $request->prod_id;
-        $edit_pro->name = $request->prod_name;
-        $edit_pro->id_type = $request->prod_id_type;
-        $edit_pro->description = $request->prod_desc;
-        $edit_pro->unit_price = $request->prod_price;
-        $edit_pro->promotion_price = $request->prod_promo_price;
-        $edit_pro->unit = $request->prod_unit;
-        $edit_pro->new = $request->prod_new;
-        $edit_pro->image = $request->prod_img;*/
-
         $edit_pro->id = $request->get('prod_id');
         $edit_pro->name = $request->get('prod_name');
         $edit_pro->id_type = $request->get('prod_id_type');
@@ -128,11 +127,30 @@ class AdminController extends Controller
         $edit_pro->promotion_price = $request->get('prod_promo_price');
         $edit_pro->unit = $request->get('prod_unit');
         $edit_pro->new = $request->get('prod_new');
-        $edit_pro->image = $request->get('prod_img');
+//        $edit_pro->image = $request->get('prod_img');
 
+        if ($request->hasFile('prod_img')) {
+            $file = $request->file('prod_img');
+            $fileName = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+            $file->move('source/image/product', $fileName);
+            $edit_pro->image = $fileName;
+        }
         $edit_pro->save();
 
-        return redirect('/admin')->with('success', 'cập nhật thành công');
+        return redirect('/admin')->with('success', 'update thành công');
+
+
+        /* $edit_pro->id = $request->prod_id;
+         $edit_pro->name = $request->prod_name;
+         $edit_pro->id_type = $request->prod_id_type;
+         $edit_pro->description = $request->prod_desc;
+         $edit_pro->unit_price = $request->prod_price;
+         $edit_pro->promotion_price = $request->prod_promo_price;
+         $edit_pro->unit = $request->prod_unit;
+         $edit_pro->new = $request->prod_new;
+         $edit_pro->image = $request->prod_img;*/
+
+
     }
 
     /**

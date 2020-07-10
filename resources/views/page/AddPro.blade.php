@@ -1,6 +1,6 @@
 @extends('Admin')
 @section('content')
-    <form action="{{route('admin.store')}}" method="post">
+    <form action="{{route('admin.store')}}" method="post" enctype="multipart/form-data">
 {{--        <input type="hidden" name="_token" value="{{csrf_token()}}">--}}
         @csrf
         <div class="container " style="width: 50rem;">
@@ -47,7 +47,7 @@
             </div>
             <div class="form-group">
                 <label for="prod_name">Product img:</label>
-                <input type="text" class="form-control" name="prod_img"/>
+                <input type="file" class="form-control" name="prod_img"/>
             </div>
             <button type="submit" class="btn btn-danger">Add</button>
             <a href="{{route('admin.index')}}" class="btn btn-warning">Back</a>
